@@ -9,29 +9,6 @@ namespace MacroSemver.Tests
     {
 
         [TestMethod]
-        public void CompareTestWithStrings1()
-        {
-            Assert.IsTrue(SemVersion.Equals("1.0.0", "1"));
-        }
-
-
-        [TestMethod]
-        public void CompareTestWithStrings2()
-        {
-            var v = new SemVersion(1, 0, 0);
-            Assert.IsTrue(v < "1.1");
-        }
-
-
-        [TestMethod]
-        public void CompareTestWithStrings3()
-        {
-            var v = new SemVersion(1, 2);
-            Assert.IsTrue(v > "1.0.0");
-        }
-
-
-        [TestMethod]
         public void CreateVersionTest()
         {
             var v = new SemVersion(1, 2, 3, "a", "b");
@@ -562,10 +539,38 @@ namespace MacroSemver.Tests
 
 
         [TestMethod]
-        public void TestStringConversion()
+        public void Operator_SemVersion_Converts_Correctly()
         {
-            SemVersion v = "1.0.0";
-            Assert.AreEqual(1, v.Major);
+            var v1 = (SemVersion)"1.0.0";
+            var v2 = new SemVersion(1, 0, 0);
+            Assert.AreEqual(v1, v2);
+        }
+
+
+        [TestMethod]
+        public void Operator_SemVersion_Propagates_Null()
+        {
+            string s = null;
+            SemVersion v = (SemVersion)s;
+            Assert.AreEqual(null, v);
+        }
+
+
+        [TestMethod]
+        public void Operator_String_Converts_Correctly()
+        {
+            SemVersion v = new SemVersion(1, 0, 0);
+            string s = v;
+            Assert.AreEqual("1.0.0", s);
+        }
+
+
+        [TestMethod]
+        public void Operator_String_Propagates_Null()
+        {
+            SemVersion v = null;
+            string s = v;
+            Assert.AreEqual(null, s);
         }
 
 

@@ -551,20 +551,51 @@ namespace MacroSemver
 
 
         /// <summary>
-        /// Implicit conversion from string to SemVersion
+        /// Explicit conversion from string to SemVersion
         /// </summary>
         ///
         /// <param name="version">
-        /// The semantic version
+        /// A string containing a semantic version
         /// </param>
         ///
         /// <returns>
-        /// The SemVersion object
+        /// A <see cref="SemVersion"/> object matching <paramref name="version"/>
+        /// - OR -
+        /// <c>null</c> if <paramref name="version"/> was <c>null</c>
         /// </returns>
         ///
-        public static implicit operator SemVersion(string version)
+        public static explicit operator SemVersion(string version)
         {
+            if (version == null)
+            {
+                return null;
+            }
+
             return Parse(version);
+        }
+
+        /// <summary>
+        /// Implicit conversion from SemVersion to string
+        /// </summary>
+        ///
+        /// <param name="version">
+        /// A SemVersion
+        /// </param>
+        ///
+        /// <returns>
+        /// String representation of <paramref name="version"/>
+        /// - OR -
+        /// <c>null</c> if <paramref name="version"/> was <c>null</c>
+        /// </returns>
+        ///
+        public static implicit operator string(SemVersion version)
+        {
+            if (version == null)
+            {
+                return null;
+            }
+
+            return version.ToString();
         }
 
 
